@@ -6,8 +6,7 @@ import java.util.LinkedList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ListComparison {
 
@@ -50,6 +49,19 @@ public class ListComparison {
         final var tail = prepended.tail();
         assertTrue(initial.equals(tail));
         assertTrue(initial == tail);
+    }
+
+    @Test
+    public void mappingSyntax() {
+        final java.util.List<Integer> javaSquares = java.util.List.of(1, 2, 3)
+                                                                  .stream()
+                                                                  .map(i -> i * i)
+                                                                  .collect(Collectors.toList());
+
+        final io.vavr.collection.List<Integer> vavrSquares = io.vavr.collection.List.of(1, 2, 3)
+                                                                                    .map(i -> i * i);
+
+        assertEquals(javaSquares, vavrSquares.toJavaList());
     }
 
 
