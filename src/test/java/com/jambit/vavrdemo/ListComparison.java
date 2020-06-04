@@ -22,8 +22,8 @@ public class ListComparison {
 
         // sublist creates new list object
         final var tail = prepended.subList(1, prepended.size());
-        assertTrue(initial.equals(tail));
-        assertFalse(initial == tail);
+        assertEquals(initial, tail);
+        assertNotSame(initial, tail);
     }
 
     @Test
@@ -36,8 +36,8 @@ public class ListComparison {
 
         // sublist creates new list object
         final var tail = prepended.subList(1, prepended.size());
-        assertTrue(initial.equals(tail));
-        assertFalse(initial == tail);
+        assertEquals(initial, tail);
+        assertNotSame(initial, tail);
     }
 
     @Test
@@ -47,8 +47,8 @@ public class ListComparison {
 
         // VAVR's provides a tail() method
         final var tail = prepended.tail();
-        assertTrue(initial.equals(tail));
-        assertTrue(initial == tail);
+        assertEquals(initial, tail);
+        assertSame(initial, tail);
     }
 
     @Test

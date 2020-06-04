@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.vavr:vavr:1.0.0-alpha-3"
+    implementation "io.vavr:vavr:0.10.3"
     testImplementation "junit:junit:4.12"
 }
 
