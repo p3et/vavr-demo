@@ -22,11 +22,11 @@ public class ExceptionHandlingTry {
 
     @Test
     public void unobtrusiveExceptionHandling() {
-        final Try<Integer> tryTwi = executeInTry(2);
+        final Try<Integer> tryTwo = executeInTry(2);
         final Try<Integer> tryThree = executeInTry(3);
         final Try<Integer> tryFour = executeInTry(4);
 
-        assertTrue(tryTwi.isSuccess());
+        assertTrue(tryTwo.isSuccess());
 
         assertTrue(tryThree.isFailure());
         assertTrue(tryFour.isFailure());
