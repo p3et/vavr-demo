@@ -4,38 +4,41 @@ import io.vavr.control.Option;
 import org.junit.Test;
 
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.Assert.*;
 
 public class OptionalComparison {
 
     @Test
-    public void correctNone() {
+    public void flatMap() {
+        final Option<Float> vavr = Option.of(0)
+                                         .flatMap(i -> i == 0 ? Option.none()
+                                                              : Option.of((float) 1 / i));
 
-        final var vavrOption = Option.of("foo")
-                                     .filter(s -> false);
+        final Optional<Float> java = Optional.of(0)
+                                             .flatMap(i -> i == 0 ? Optional.empty()
+                                                                  : Optional.of((float) 1 / i));
 
-        assertTrue(vavrOption.isEmpty());
-
-        final var javaOptional = Optional.of("foo")
-                                         .filter(s -> false);
-
-        assertTrue(javaOptional.isEmpty());
+        assertTrue(vavr.isEmpty());
+        assertTrue(vavr instanceof Option.None);
+        assertTrue(java.isEmpty());
     }
 
     @Test
-    public void incorrectNone() {
+    public void map() {
+        final Function<Integer, Float> divideOneByNumber = i -> i == 0 ? null
+                                                                       : (float) 1 / i;
 
-        final var vavrOption = Option.of("foo")
-                                     .map(f -> (String) null);
+        final Option<Float> vavr = Option.of(0)
+                                         .map(divideOneByNumber);
 
-        assertFalse(vavrOption.isEmpty());
-        assertNull(vavrOption.get());
+        final Optional<Float> java = Optional.of(0)
+                                             .map(divideOneByNumber);
 
-        final var javaOptional = Optional.of("foo")
-                                         .map(f -> (String) null);
-
-        assertTrue(javaOptional.isEmpty());
+        assertFalse(vavr.isEmpty());
+        assertTrue(vavr instanceof Option.Some);
+        assertNull(vavr.get());
+        assertTrue(java.isEmpty());
     }
-
 }
