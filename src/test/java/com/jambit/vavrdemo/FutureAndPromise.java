@@ -1,9 +1,10 @@
 package com.jambit.vavrdemo;
 
 import io.vavr.concurrent.Future;
+import io.vavr.concurrent.Promise;
 import org.junit.Test;
 
-public class FunctionalFuture {
+public class FutureAndPromise {
 
     @Test
     public void basics() throws InterruptedException {
@@ -82,6 +83,32 @@ public class FunctionalFuture {
         future.cancel();
 
         print(future);
+
+        System.out.println("-----");
+    }
+
+    @Test
+    public void promise() throws InterruptedException {
+        final Promise<Integer> promise = Promise.<Integer>make()
+            .completeWith(Future.of(() -> {
+                Thread.sleep(2000);
+                System.out.println("--- other thread --");
+                return 42;
+            }));
+
+        promise.future()
+               .onSuccess(i -> System.out.println(i * 2));
+
+        System.out.println("--- main thread ----");
+
+        print(promise.future());
+
+        Thread.sleep(1000);
+        System.out.println("--- main thread after waiting ---");
+
+        promise.failure(new OldLibrary.CheckedException());
+
+        print(promise.future());
 
         System.out.println("-----");
     }
