@@ -49,7 +49,7 @@ public class FunctionsAndExceptions {
 
         final Option<Integer> result = safeSquare.apply(2);
 
-        assertEquals(Integer.valueOf(4), result.get());
+        result.peek(i -> assertEquals(Integer.valueOf(4), i));
     }
 
     @Test
