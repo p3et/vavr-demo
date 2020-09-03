@@ -16,7 +16,7 @@ public class FunctionsAndExceptions {
     public void function() {
         final Function1<Integer, Integer> square = i -> {
             try {
-                return OldLibrary.square(i);
+                return OldLibrary.squareExcept4(i);
             } catch (final OldLibrary.CheckedException e) {
                 return -1;
             }
@@ -29,7 +29,7 @@ public class FunctionsAndExceptions {
 
     @Test
     public void checkedFunction() {
-        final CheckedFunction1<Integer, Integer> square = i -> OldLibrary.square(i);
+        final CheckedFunction1<Integer, Integer> square = i -> OldLibrary.squareExcept4(i);
 
         Integer result;
         try {
@@ -43,7 +43,7 @@ public class FunctionsAndExceptions {
 
     @Test
     public void checkedLifting() {
-        final CheckedFunction1<Integer, Integer> square = i -> OldLibrary.square(i);
+        final CheckedFunction1<Integer, Integer> square = i -> OldLibrary.squareExcept4(i);
 
         final Function1<Integer, Option<Integer>> safeSquare = CheckedFunction1.lift(square);
 

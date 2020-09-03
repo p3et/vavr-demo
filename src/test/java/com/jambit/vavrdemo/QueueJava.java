@@ -1,6 +1,5 @@
 package com.jambit.vavrdemo;
 
-
 import org.junit.Test;
 
 import java.util.ArrayList;

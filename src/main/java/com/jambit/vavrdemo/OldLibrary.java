@@ -2,7 +2,7 @@ package com.jambit.vavrdemo;
 
 public class OldLibrary {
 
-    static Integer square(final Integer i) throws CheckedException {
+    static Integer squareExcept4(final Integer i) throws CheckedException {
         if (i % 4 == 0) {
             throw new CheckedException();
         } else {
@@ -10,7 +10,7 @@ public class OldLibrary {
         }
     }
 
-    static Integer byTwo(final Integer i) {
+    static Integer byTwoExcept10(final Integer i) {
         if (i % 10 == 0) {
             throw new RuntimeException();
         } else {

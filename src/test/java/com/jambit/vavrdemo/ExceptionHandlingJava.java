@@ -14,9 +14,9 @@ public class ExceptionHandlingJava {
 
     private Integer execute(final Integer input) throws OldLibrary.CheckedException {
 
-        final Integer squared = OldLibrary.square(input);
+        final Integer squared = OldLibrary.squareExcept4(input);
         final Integer oneAdded = squared + 1;
-        final Integer byTwo = OldLibrary.byTwo(oneAdded);
+        final Integer byTwo = OldLibrary.byTwoExcept10(oneAdded);
 
         return byTwo;
     }

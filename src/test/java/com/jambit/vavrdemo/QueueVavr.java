@@ -1,6 +1,5 @@
 package com.jambit.vavrdemo;
 
-
 import io.vavr.Tuple2;
 import io.vavr.collection.List;
 import io.vavr.collection.Queue;

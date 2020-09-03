@@ -22,6 +22,7 @@ public class OptionalComparison {
 
         assertTrue(vavr.isEmpty());
         assertTrue(vavr instanceof Option.None);
+
         assertTrue(java.isEmpty());
     }
 
@@ -38,7 +39,8 @@ public class OptionalComparison {
 
         assertFalse(vavr.isEmpty());
         assertTrue(vavr instanceof Option.Some);
-        assertNull(vavr.get());
+        vavr.peek(i -> assertNull(i));
+
         assertTrue(java.isEmpty());
     }
 }

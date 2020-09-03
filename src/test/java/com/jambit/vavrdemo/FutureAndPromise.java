@@ -114,9 +114,9 @@ public class FutureAndPromise {
     }
 
     private void print(final Future<Integer> future) {
-        System.out.println(future.isCompleted());
-        System.out.println(future.isSuccess());
-        System.out.println(future.getValue());
+        System.out.println("Completed:\t" + future.isCompleted());
+        System.out.println("Success:\t" + future.isSuccess());
+        System.out.println("Value:\t\t" + future.getValue());
     }
 
 }

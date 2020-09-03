@@ -142,7 +142,7 @@ public class CollectionBenchmark {
         );
 
         run(
-            "folding",
+            "reduce",
 
             () -> IntStream.of(intArray)
                            .reduce((a, b) -> a + b),

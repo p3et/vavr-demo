@@ -8,38 +8,37 @@ import org.junit.Test;
 
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+@SuppressWarnings("ThrowableNotThrown")
 public class ExceptionHandlingTry {
 
     private Try<Integer> executeInTry(final Integer input) {
         return Try.of(() -> input)
-                  .mapTry(OldLibrary::square)
+                  .mapTry(OldLibrary::squareExcept4)
                   .map(i -> i + 1)
-                  .map(OldLibrary::byTwo);
+                  .map(OldLibrary::byTwoExcept10);
     }
 
     @Test
     public void unobtrusiveExceptionHandling() {
-        final Try<Integer> tryTwo = executeInTry(2);
-        final Try<Integer> tryThree = executeInTry(3);
-        final Try<Integer> tryFour = executeInTry(4);
+        final Try<Integer> try2 = executeInTry(2);
+        final Try<Integer> try3 = executeInTry(3);
+        final Try<Integer> try4 = executeInTry(4);
 
-        assertTrue(tryTwo.isSuccess());
+        assertTrue(try2.isSuccess());
 
-        assertTrue(tryThree.isFailure());
-        assertTrue(tryFour.isFailure());
+        assertTrue(try3.isFailure());
+        assertTrue(try4.isFailure());
 
-        assertEquals(RuntimeException.class, handleExceptions(tryThree).getClass());
-        assertEquals(OldLibrary.CheckedException.class, handleExceptions(tryFour).getClass());
+        handleExceptions(try3);
+        handleExceptions(try4);
     }
 
-    private Throwable handleExceptions(final Try<Integer> tryN) {
-        return tryN.onFailure(OldLibrary.CheckedException.class, throwable -> System.out.println("Checked exception of OldLibrary was thrown!"))
-                   .onFailure(RuntimeException.class, throwable -> System.out.println("OldLibrary threw a runtime exception!"))
-                   .onFailure(throwable -> System.out.println(throwable))
-                   .getCause();
+    private void handleExceptions(final Try<Integer> tryN) {
+        tryN.onFailure(OldLibrary.CheckedException.class, throwable -> System.out.println("Checked exception of OldLibrary was thrown!"))
+            .onFailure(RuntimeException.class, throwable -> System.out.println("OldLibrary threw a runtime exception!"))
+            .onFailure(throwable -> System.out.println(throwable));
     }
 
     @Test
